@@ -21,7 +21,7 @@
   <?php
 
 
-$connection = mysqli_connect("localhost","root","","bio");
+include 'db.php';
 
 if(isset($_POST['registerbtn']))
 {
@@ -33,24 +33,24 @@ if(isset($_POST['registerbtn']))
     if($password === $confirm_password)
     {
         // Ambil data id_content terakhir dari database
-        $sqlEditor = "SELECT id_editor FROM editor ORDER BY id_editor DESC LIMIT 1";
-        $result = $connection->query($sqlEditor);
+        $sqlEditor = "SELECT id_admin FROM editor ORDER BY id_admin DESC LIMIT 1";
+        $result = $conn->query($sqlEditor);
 
         if ($result->num_rows > 0) {
           $row = $result->fetch_assoc();
-          $last_ide = intval(substr($row["id_editor"], 1));
+          $last_ide = intval(substr($row["id_admin"], 1));
         } else {
           $last_ide = 0;
         }
 
-        // Tambahkan 1 pada data id_editor terakhir dan tambahkan nol di depan hingga menjadi 4 digit angka
+        // Tambahkan 1 pada data id_admin terakhir dan tambahkan nol di depan hingga menjadi 4 digit angka
        $new_ide = str_pad($last_ide + 1, 4, "0", STR_PAD_LEFT);
 
        // Gabungkan awalan kode content dan data id_content yang telah dihasilkan
-      $id_editor = "E" . $new_ide;
+      $id_admin = "E" . $new_ide;
 
-        $query = "INSERT INTO editor (id_editor,username,email,password) VALUES ('$id_editor','$username','$email','$password')";
-        $query_run = mysqli_query($connection, $query);
+        $query = "INSERT INTO editor (id_admin,username,email,password) VALUES ('$id_admin','$username','$email','$password')";
+        $query_run = mysqli_query($conn, $query);
     
         if($query_run)
         {
@@ -88,18 +88,18 @@ if(isset($_POST['title'])){
 
     $description = $_POST['description'];
     $date = date("Y-m-d H:i:s");
-    $editor = $_SESSION['id_editor'];
+    $editor = $_SESSION['id_admin'];
 
     // $sqlinsert = "INSERT INTO `content` (`id_content`, `id_category`, `title`, `content`, `img`) VALUES ('C0002','$category','$title','$description','$folder')";
     // mysqli_query($conn, $sqlinsert);
 
     // Ambil data id_content terakhir dari database
     $sqlContent = "SELECT id_content FROM content ORDER BY id_content DESC LIMIT 1";
-    $result = $connection->query($sqlContent);
+    $result = $conn->query($sqlContent);
 
     // Ambil data id_upload terakhir dari database
     $sqlUpload = "SELECT id_upload FROM uploadlogs ORDER BY id_upload DESC LIMIT 1";
-    $result1 = $connection->query($sqlUpload);
+    $result1 = $conn->query($sqlUpload);
 
     if ($result->num_rows > 0) {
       $row = $result->fetch_assoc();
@@ -136,9 +136,9 @@ if(isset($_POST['title'])){
     }else{
     // Simpan kode content ke database
     $sql = "INSERT INTO `content` (`id_content`, `id_category`, `title`, `content`, `img`) VALUES ('$id_content','$id_category','$title','$description','$folder')"; 
-    $sql2 = "INSERT INTO `uploadlogs` (`id_upload`,`id_content`,`id_editor`, `date`) VALUES ('$id_upload','$id_content','$editor',current_timestamp())";
-    $query_run = mysqli_query($connection, $sql);
-    $query_run2 = mysqli_query($connection, $sql2);
+    $sql2 = "INSERT INTO `uploadlogs` (`id_upload`,`id_content`,`id_admin`, `date`) VALUES ('$id_upload','$id_content','$editor',current_timestamp())";
+    $query_run = mysqli_query($conn, $sql);
+    $query_run2 = mysqli_query($conn, $sql2);
     
     if($query_run &&  $query_run2)
     {
@@ -158,8 +158,8 @@ if(isset($_POST['title'])){
 if(isset($_POST['del_content'])){
   $id_content=$_POST['del_content'];
   $id_upload=$_POST['del_upload'];
-  mysqli_query($connection, "DELETE FROM `uploadlogs` WHERE id_upload= '$id_upload'");
-  mysqli_query($connection, "DELETE FROM `content` WHERE id_content= '$id_content'");
+  mysqli_query($conn, "DELETE FROM `uploadlogs` WHERE id_upload= '$id_upload'");
+  mysqli_query($conn, "DELETE FROM `content` WHERE id_content= '$id_content'");
 }
 
 if(isset($_POST['id_update'])){
@@ -167,7 +167,7 @@ if(isset($_POST['id_update'])){
   $title=$_POST['editTitle'];
   $content=$_POST['description'];
   $id_category=$_POST['category'];
-  mysqli_query($connection, "UPDATE `content` SET `content`='$content', `title`='$title', `id_category`='$id_category' WHERE id_content = '$id_content'");
+  mysqli_query($conn, "UPDATE `content` SET `content`='$content', `title`='$title', `id_category`='$id_category' WHERE id_content = '$id_content'");
   header('Location: ../index.php');
 }
 

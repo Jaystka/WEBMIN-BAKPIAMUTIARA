@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if($chek>0)
     {
         $row = mysqli_fetch_assoc($user);
-        $_SESSION['id_editor'] = $row['id_editor'];
+        $_SESSION['id_admin'] = $row['id_admin'];
         $_SESSION["username"] = $row["username"];
         $_SESSION['password'] = $row['password'];
         // $_SESSION["nama"] = $row["nama_admin"];

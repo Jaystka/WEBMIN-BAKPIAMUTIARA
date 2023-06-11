@@ -15,8 +15,14 @@
   <!-- Nav Item - Dashboard -->
   <li class="nav-item active">
     <a class="nav-link" href="index.php">
-      <img class="mr-2" src="img/Vector.svg" alt="">
+      <img class="mr-2" src="img/dVector.svg" alt="">
       <span>Dashboard</span></a>
+  </li>
+
+  <li class="nav-item active">
+    <a class="nav-link" href="index.php">
+      <img class="mr-2" src="img/mVector.svg" alt="">
+      <span>Admin Management</span></a>
   </li>
 
   <!-- Divider -->
@@ -29,22 +35,10 @@
 
   <!-- Nav Item - Pages Collapse Menu -->
   <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
-      aria-controls="collapseTwo">
-      <i class="fas fa-fw fa-cog"></i>
-      <span>Components</span>
-    </a>
-    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-      <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Custom Components:</h6>
-        <a class="collapse-item" href="buttons.html">Buttons</a>
-        <a class="collapse-item" href="cards.html">Cards</a>
-      </div>
-    </div>
+    <a class="nav-link" href="register.php">
+      <i class="fas fa-fw fa-chart-area"></i>
+      <span>Admin Profile</span></a>
   </li>
-
-
-
 
   <li class="nav-item">
     <a class="nav-link" href="register.php">
@@ -342,18 +336,18 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Yakin untuk keluar halaman?</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+          <div class="modal-body">Pilih "Keluar" untuk mengakhiri sesi ini</div>
           <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
 
             <form action="includes/logout.php" method="POST">
 
-              <button type="submit" name="logout_btn" class="btn btn-primary">Logout</button>
+              <button type="submit" name="logout_btn" class="btn btn-danger">Keluar</button>
 
             </form>
 
