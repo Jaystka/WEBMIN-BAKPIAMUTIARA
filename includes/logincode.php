@@ -31,11 +31,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // }
     }else
     {
-        echo "<div class='alert alert-danger'>
-        <strong>Error!</strong> Username dan password salah. 
-        </div>";;
+        header("Location:../login.php");
     }
 
 }
 
 ?>
+

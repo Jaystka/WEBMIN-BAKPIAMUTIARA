@@ -89,7 +89,7 @@
                     <div id="lg-choice" class="form-group text-white mb-4">
                       <input type="radio" name="flexRadioDefault" id="1">
                       <label class="form-check-label" for="1">
-                        Karyawan
+                        Departement
                       </label>
                       <input class="ml-5" type="radio" name="flexRadioDefault" id="0">
                       <label class="form-check-label" for="0">
@@ -118,6 +118,7 @@
   <?php
 include('includes/scripts.php'); 
 ?>
+
 </body>
 
 </html>

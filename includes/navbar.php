@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-danger sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul style="background-color: #E33035;" class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar">
 
   <!-- Sidebar - Brand -->
   <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
@@ -20,7 +20,7 @@
   </li>
 
   <li class="nav-item active">
-    <a class="nav-link" href="index.php">
+    <a class="nav-link" href="adminManagement-page.php">
       <img class="mr-2" src="img/mVector.svg" alt="">
       <span>Admin Management</span></a>
   </li>
@@ -135,12 +135,14 @@
       </button>
 
       <!-- Topbar Search -->
-      <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+      <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+        action="includes/logincode.php" method="post">
         <div class="input-group">
-          <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+          <input name="search" type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
             aria-label="Search" aria-describedby="basic-addon2">
+          <input name="accsNow" type="hidden" value="<?php echo $_SESSION['accsNow']; ?>">
           <div class="input-group-append">
-            <button class="btn btn-primary" type="button">
+            <button class="btn btn-danger" type="submit">
               <i class="fas fa-search fa-sm"></i>
             </button>
           </div>
