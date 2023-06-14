@@ -69,9 +69,16 @@ $_SESSION['accsNow'] = "a";
         </table>
 
       </div>
-      <button style="height: 50px; font-weight: bold;" class="btn btn-warning "><img src="img/pVector.svg" alt="">
-        Export
-        PDF</button>
+      <div style="display: inline-block;padding-right: 1rem">
+        <button style="height: 50px; font-weight: bold;padding:0 1.5rem" class="btn btn-warning "><img
+            src="img/mdi_edit-box.svg" alt="">
+          Edit Data</button>
+      </div>
+      <div style="display: inline-block">
+        <button style="height: 50px; font-weight: bold;" class="btn btn-danger "><img src="img/pVector.svg" alt="">
+          Export
+          PDF</button>
+      </div>
     </div>
   </div>
 
