@@ -100,8 +100,6 @@
                         class="btn btn-danger btn-primary ">
                         Login </button></div>
                   </form>
-
-
                 </div>
               </div>
             </div>

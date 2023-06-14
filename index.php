@@ -14,6 +14,7 @@ if (!isset($_SESSION["username"])) {
 // }
 
 $username = $_SESSION["username"];
+$_SESSION["accsNow"] = "all";
 
 include('includes/header.php'); 
 include('includes/navbar.php'); 

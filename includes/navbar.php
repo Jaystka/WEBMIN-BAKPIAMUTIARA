@@ -136,13 +136,13 @@
 
       <!-- Topbar Search -->
       <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
-        action="includes/logincode.php" method="post">
+        onsubmit="return false;">
         <div class="input-group">
-          <input name="search" type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-            aria-label="Search" aria-describedby="basic-addon2">
+          <input id="scInput" name="search" type="text" class="form-control bg-light border-0 small"
+            placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
           <input name="accsNow" type="hidden" value="<?php echo $_SESSION['accsNow']; ?>">
           <div class="input-group-append">
-            <button class="btn btn-danger" type="submit">
+            <button id="scBtn" class="btn btn-danger" type="submit">
               <i class="fas fa-search fa-sm"></i>
             </button>
           </div>
@@ -358,3 +358,15 @@
         </div>
       </div>
     </div>
+    <script>
+      $("#scBtn").click(function () {
+        $.ajax({
+          type: "POST",
+          url: "includes/search.php",
+          data: { accsNow: "a", search: "Lutpa" },
+          success: function () {
+            $("#tabel-content").load("./includes/search.php");
+          }
+        });
+      });
+    </script>

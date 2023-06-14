@@ -1,24 +1,16 @@
-<?php
-session_start();
-include('includes/header.php'); 
-include('includes/navbar.php');
-require_once './includes/db.php';
-$editor = mysqli_query($conn,"Select * from editor");
-$_SESSION['accsNow'] = "a";
+<?php 
+include 'db.php';
+
+if(isset($_POST['accsNow'])){
+    $accsNow = $_POST['accsNow'];
+    $search = $_POST['search'];
+
+        $sqlSearch = "select * from editor where name = 'Lutpa' ";
+        $editor = mysqli_query($conn, "select * from editor where name = 'Lutpa' ");
+    
+}
 ?>
 
-<div class="container-fluid">
-
-  <!-- DataTales Example -->
-  <div class="card shadow mb-4">
-    <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold">Admin Management
-      </h6>
-    </div>
-
-    <div class="card-body" >
-
-      <div class="table-responsive" id="tabel-content">
 
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead style="background: #E33035; color: white;">
@@ -66,18 +58,3 @@ $_SESSION['accsNow'] = "a";
             </tr>
 
           </tbody>
-        </table>
-
-      </div>
-      <button style="height: 50px; font-weight: bold;" class="btn btn-warning "><img src="img/pVector.svg" alt="">
-        Export
-        PDF</button>
-    </div>
-  </div>
-
-</div>
-<!-- /.container-fluid -->
-<?php
-include('includes/scripts.php');
-include('includes/footer.php');
-?>
