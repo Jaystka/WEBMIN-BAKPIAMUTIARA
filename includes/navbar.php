@@ -37,7 +37,21 @@
   <li class="nav-item">
     <a class="nav-link" href="register.php">
       <i class="fas fa-fw fa-chart-area"></i>
-      <span>Admin Profile</span></a>
+      <span>Karyawan</span></a>
+  </li>
+
+  <!-- Nav Item - Pages Collapse Menu -->
+  <li class="nav-item">
+    <a class="nav-link" href="production-page.php">
+      <i class="fas fa-fw fa-chart-area"></i>
+      <span>Produksi</span></a>
+  </li>
+
+  <!-- Nav Item - Pages Collapse Menu -->
+  <li class="nav-item">
+    <a class="nav-link" href="production-page.php">
+      <i class="fas fa-fw fa-chart-area"></i>
+      <span>Gudang</span></a>
   </li>
 
   <!-- Nav Item - Utilities Collapse Menu -->

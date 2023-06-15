@@ -23,9 +23,10 @@
 
 include 'db.php';
 
-if(isset($_POST['registerbtn']))
+if(isset($_POST['addUser']))
 {
     $username = $_POST['username'];
+    $name = $_POST['name'];
     $email = $_POST['email'];
     $password = $_POST['password'];
     $confirm_password = $_POST['confirmpassword'];
@@ -47,29 +48,29 @@ if(isset($_POST['registerbtn']))
        $new_ide = str_pad($last_ide + 1, 4, "0", STR_PAD_LEFT);
 
        // Gabungkan awalan kode content dan data id_content yang telah dihasilkan
-      $id_admin = "E" . $new_ide;
+      $id_admin = "A" . $new_ide;
 
-        $query = "INSERT INTO editor (id_admin,username,email,password) VALUES ('$id_admin','$username','$email','$password')";
+        $query = "INSERT INTO editor (id_admin,username,name,email,password) VALUES ('$id_admin','$username','name','$email','$password')";
         $query_run = mysqli_query($conn, $query);
     
         if($query_run)
         {
             echo "done";
             $_SESSION['success'] =  "Admin is Added Successfully";
-            header('Location: ../register.php');
+            header('Location: ../adminManagement-page.php');
         }
         else 
         {
             echo "not done";
             $_SESSION['status'] =  "Admin is Not Added";
-            header('Location: ../register.php');
+            header('Location: ../adminManagement-page.php');
         }
     }
     else 
     {
         echo "pass no match";
         $_SESSION['status'] =  "Password and Confirm Password Does not Match";
-        header('Location: register.php');
+        header('Location: adminManagement-page.php');
     }
 
 }

@@ -14,7 +14,7 @@ require_once './includes/db.php';
       </h6>
     </div>
 
-    <div class="card-body">
+    <div class="card-body" >
 
       <div class="table-responsive" id="tabel-content">
 
@@ -80,9 +80,9 @@ require_once './includes/db.php';
           Tambah Data</button>
       </div>
       <div style="display: inline-block">
-        <a href="includes/export.php" target="_blank" style="padding: 10px; font-weight: bold;"
-          class="btn btn-danger "><img src="img/pVector.svg" alt="">
-          Export PDF</a>
+        <button style="height: 50px; font-weight: bold;" class="btn btn-danger "><img src="img/pVector.svg" alt="">
+          Export
+          PDF</button>
       </div>
     </div>
   </div>
