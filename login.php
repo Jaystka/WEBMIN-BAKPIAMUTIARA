@@ -87,11 +87,11 @@
                     <input id="password" type="password" name="password" class="form-control mb-4"
                       placeholder="Password">
                     <div id="lg-choice" class="form-group text-white mb-4">
-                      <input type="radio" name="flexRadioDefault" id="1">
+                      <input type="radio" name="loginType" id="1" value="dept">
                       <label class="form-check-label" for="1">
                         Departement
                       </label>
-                      <input class="ml-5" type="radio" name="flexRadioDefault" id="0">
+                      <input class="ml-5" type="radio" name="loginType" id="0" value="adm">
                       <label class="form-check-label" for="0">
                         Admin
                       </label>

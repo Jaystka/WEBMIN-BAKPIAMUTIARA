@@ -80,7 +80,9 @@ require_once './includes/db.php';
           Tambah Data</button>
       </div>
       <div style="display: inline-block">
-        <a href="includes/export.php" target="_blank" style="padding: 10px; font-weight: bold;"
+        <a href="includes/export.php?exportTabel=karyawan<?php if (isset($_GET['search'])) {
+          echo "&search=".$_GET['search'] ;
+        }?>" target="_blank" style="padding: 10px; font-weight: bold;"
           class="btn btn-danger "><img src="img/pVector.svg" alt="">
           Export PDF</a>
       </div>
