@@ -6,7 +6,7 @@ include 'db.php';
 session_start();
 $level = $_SESSION["level"];
 
-if (isset($_GET['exportTabel']) && ($level == "1" || $level == "2")) {
+if (isset($_GET['exportTabel']) && ($level == "100" || $level == "2")) {
    $export = $_GET['exportTabel'];
    if ($export == 'karyawan' ) {
     // intance object dan memberikan pengaturan halaman PDF
