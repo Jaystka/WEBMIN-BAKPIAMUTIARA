@@ -20,14 +20,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // $_SESSION["nama"] = $row["nama_admin"];
         $_SESSION['level'] = $row['level'];
 
-        header("Location:../index.php");
+        //echo "success";
+        $request["valid"] = "success";
+        $_SESSION['status'] = "success";
     }else
     {
-        header("Location:../login.php");
+       // echo "failed";
+       $request["valid"] = "failed";
+    $_SESSION['status'] = "failed";
     }
 
+    echo json_encode($request);
     
-    }elseif($_POST['loginType'] == "dept"){
+    } elseif($_POST['loginType'] == "dept"){
     include 'db.php';
     $username   = $_POST["username"];
     $pass    = $_POST['password'];

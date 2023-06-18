@@ -7,7 +7,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+  <!-- SweetAlert2-->
+  <link rel="stylesheet" href="vendor/sweetalert2/sweetalert2.min.css">
+  <script src="vendor/sweetalert2/sweetalert2.min.js"></script>
   <link href="css/sb-admin-2.css" rel="stylesheet">
   <title>Login Page</title>
   <style>
@@ -71,27 +74,18 @@
               <div class="col-lg-12">
                 <h1 style="font-weight: bold;" class="h1 text-white text-center">LOGIN</h1>
                 <div class="px-4 py-5">
-                  <div class="text-center">
-                    <?php
 
-                    if(isset($_SESSION['status']) && $_SESSION['status'] !='') 
-                    {
-                        echo '<h2 class="bg-danger text-white"> '.$_SESSION['status'].' </h2>';
-                        unset($_SESSION['status']);
-                    }
-                ?>
-                  </div>
-
-                  <form class="user" action="includes/logincode.php" method="POST">
-                    <input id="username" type="text" name="username" class="form-control mb-5" placeholder="username">
+                  <form id="form" class="user" action="includes/logincode.php" method="POST">
+                    <input id="username" type="text" name="username" class="form-control mb-5" placeholder="username"
+                      required>
                     <input id="password" type="password" name="password" class="form-control mb-4"
-                      placeholder="Password">
+                      placeholder="Password" required>
                     <div id="lg-choice" class="form-group text-white mb-4">
-                      <input type="radio" name="loginType" id="1" value="dept">
+                      <input type="radio" name="loginType" id="myRadio" value="dept">
                       <label class="form-check-label" for="1">
                         Departement
                       </label>
-                      <input class="ml-5" type="radio" name="loginType" id="0" value="adm">
+                      <input class="ml-5" type="radio" name="loginType" id="myRadio" value="adm">
                       <label class="form-check-label" for="0">
                         Admin
                       </label>
@@ -116,6 +110,48 @@
   <?php
 include('includes/scripts.php'); 
 ?>
+
+  <script>
+    document.getElementById("myRadio").required = true;
+    var username = document.getElementById("username");
+    var password = document.getElementById("password");
+
+    $(document).on('click', '#btn-form', function (e) {
+      e.preventDefault();
+      if (username.value != "" && password.value != "") {
+        $.ajax({
+          type: "POST",
+          url: $(".user").attr('action'),
+          data: $(".user").serialize(),
+          success: function (data) {
+            var validate = JSON.parse(data);
+            if (validate.valid == "success")
+              window.location.href = "/index.php";
+            else
+              Swal.fire({
+                title: 'Gagal Login !',
+                text: 'Username atau Password Salah!!',
+                icon: 'error',
+                confirmButtonText: 'OK',
+                confirmButtonColor: 'red'
+              }
+              );
+
+          }
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          text: 'Masukkan Username dan Password Anda!',
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000
+        });
+      };
+    });
+  </script>
+
 
 </body>
 
