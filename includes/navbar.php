@@ -49,7 +49,7 @@
    }
   foreach ($menu as $rows) {
     echo '<a class="nav-link" href="'.$rows['link'].'">';
-    echo  '<i class=" mr-2 '.$rows['ikon_menu'].' fa-5x "></i>';
+    echo  '<i class=" mr-2 fas fa-fw '.$rows['ikon_menu'].' "></i>';
     echo  '<span>'.$rows['nama_menu'].'</span></a>';
   }
   ?>
@@ -78,7 +78,7 @@
 
       <!-- Sidebar Toggle (Topbar) -->
       <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-        <i class="fa fa-bars"></i>
+        <i class="fas fa-bars"></i>
       </button>
 
       <!-- Topbar Search -->
