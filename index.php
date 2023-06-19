@@ -19,8 +19,8 @@ $_SESSION["accsNow"] = "all";
 include('includes/header.php'); 
 include('includes/navbar.php'); 
 require_once './includes/db.php';
-$count_ca = mysqli_query($conn,"SELECT COUNT(category) as ca from category");
-$count_up = mysqli_query($conn,"SELECT COUNT(id_content) as up from uploadlogs");
+$count_ca = mysqli_query($conn,"SELECT COUNT(name) as ca from admin");
+$count_up = mysqli_query($conn,"SELECT COUNT(name) as up from admin");
 ?>
 
 

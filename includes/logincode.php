@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pass    = $_POST['password'];
     
     if ($_POST['loginType'] == "adm") {
-    $user = mysqli_query($conn,"select * from editor where username='$username' and password='$pass'");
+    $user = mysqli_query($conn,"select * from admin where username='$username' and password='$pass'");
     $chek = mysqli_num_rows($user);
 
     if($chek>0)
