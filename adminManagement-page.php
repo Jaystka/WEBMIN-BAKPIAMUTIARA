@@ -63,36 +63,36 @@ require_once './includes/db.php';
         <div class="modal-body ">
           <div class="mb-3">
             <label class="form-label" for="name">Nama</label>
-            <input class="form-control" name="name" id="name" type="text" required>
+            <input class="form-control" name="name" id="nameE" type="text" required>
           </div>
           <div class="mb-3">
             <label class="form-label" for="username">Nama Pengguna</label>
-            <input class="form-control" name="username" id="username" type="text" required>
+            <input class="form-control" name="username" id="usernameE" type="text" required>
           </div>
           <div class="mb-3">
             <label class="form-label" for="email">Email</label>
-            <input class="form-control" name="email" id="email" type="text" required>
+            <input class="form-control" name="email" id="emailE" type="text" required>
           </div>
           <div class="mb-3">
             <label class="form-label" for="password">Kata Sandi</label>
-            <input class="form-control" name="password" id="password" type="password" required>
+            <input class="form-control" name="password" id="passwordE" type="password" required>
           </div>
           <div class="mb-3">
             <label class="form-label" for="passwordConf">Konfirmasi Kata Sandi</label>
-            <input class="form-control" name="passwordConf" id="passwordConf" type="password" required>
+            <input class="form-control" name="passwordConf" id="passwordConfE" type="password" required>
           </div>
           <div class="mb-3">
             <label class="form-label" for="level">Level</label>
-            <input class="form-control" name="level" id="level" type="number" min="1" max="100" required>
+            <input class="form-control" name="level" id="levelE" type="number" min="1" max="100" required>
           </div>
           <p class="text-danger" id="message"></p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-danger" id="btnFormAdd">Save
+          <button type="submit" class="btn btn-danger" id="btnFormEdit">Save
             changes</button>
         </div>
-        <input name="addAdmin" type="hidden">
+        <input name="updateAdmin" id="updateAdmin" type="hidden">
       </form>
     </div>
   </div>
@@ -148,16 +148,12 @@ require_once './includes/db.php';
                 <?= $rows['email'] ?>
               </td>
               <td>
-                <form action="" method="post">
-                  <input type="hidden" name="edit_id" value="<?= $rows['id_admin'] ?>">
-                  <button type="submit" name="edit_btn" class="btn btn-success"> EDIT</button>
-                </form>
+                <button type="submit" name="edit_btn" class="btn btn-success" data-bs-toggle="modal"
+                  data-bs-target="#modalEditData" onclick="editData(`<?= $rows['id_admin'] ?>`);"> EDIT</button>
               </td>
               <td>
-                <form action="" method="post">
-                  <input type="hidden" name="delete_id" value="<?= $rows['id_admin'] ?>">
-                  <button type="submit" name="delete_btn" class="btn btn-danger"> DELETE</button>
-                </form>
+                <button type="submit" name="delete_btn" class="btn btn-danger"
+                  onclick="deleteData(`<?= $rows['id_admin'] ?>`);"> DELETE</button>
               </td>
               <?php
         }
@@ -191,6 +187,8 @@ include('includes/footer.php');
 ?>
 
 <script>
+
+  //Add Data Form
   $(document).on('click', '#btnFormAdd', function (e) {
     e.preventDefault();
     var pw1 = document.getElementById("password").value;
@@ -250,14 +248,43 @@ include('includes/footer.php');
     }
   });
 
+  //Get Data From Database For Edit
+  function editData(id) {
+    document.getElementById("updateAdmin").value = "";
+    document.getElementById("nameE").value = "";
+    document.getElementById("usernameE").value = "";
+    document.getElementById("emailE").value = "";
+    document.getElementById("levelE").value = "";
+    document.getElementById("passwordE").value = "";
+    document.getElementById("passwordConfE").value = "";
+    $.ajax({
+      type: "POST",
+      url: "session/update-data-session.php",
+      data: { idAdmin: id },
+      success: function (data) {
+        var data = JSON.parse(data);
+        document.getElementById("updateAdmin").value = data.id_admin;
+        document.getElementById("nameE").value = data.name;
+        document.getElementById("usernameE").value = data.username;
+        document.getElementById("emailE").value = data.email;
+        document.getElementById("levelE").value = data.level;
+        document.getElementById("passwordE").value = data.password;
+        document.getElementById("passwordConfE").value = data.password;
+      }
+    });
+  }
+
+  //End Get Data From Database For Edit
+
+  //Edit Data Form
   $(document).on('click', '#btnFormEdit', function (e) {
     e.preventDefault();
-    var pw1 = document.getElementById("password").value;
-    var pw2 = document.getElementById("passwordConf").value;
-    var name = document.getElementById("name").value;
-    var username = document.getElementById("username").value;
-    var email = document.getElementById("email").value;
-    var level = document.getElementById("level").value;
+    var pw1 = document.getElementById("passwordE").value;
+    var pw2 = document.getElementById("passwordConfE").value;
+    var name = document.getElementById("nameE").value;
+    var username = document.getElementById("usernameE").value;
+    var email = document.getElementById("emailE").value;
+    var level = document.getElementById("levelE").value;
 
     if (name.length != 0 && username.length != 0 && email.length != 0 && pw1.length != 0 && pw2.length != 0 && level.length != 0) {
       if (pw1 != pw2) {
@@ -265,7 +292,7 @@ include('includes/footer.php');
         return false;
       } else {
         Swal.fire({
-          title: 'Apakah anda yakin untuk menambahkan data?',
+          title: 'Apakah anda yakin untuk mengubah data?',
           showDenyButton: true,
           confirmButtonText: 'Simpan',
           denyButtonText: `Batal`,
@@ -274,7 +301,7 @@ include('includes/footer.php');
           if (result.isConfirmed) {
             $.ajax({
               type: "POST",
-              url: "session/edit-data-session.php",
+              url: "session/save-update-session.php",
               data: $(".formEdit").serialize(),
               success: function (data) {
                 var validate = JSON.parse(data);
@@ -291,9 +318,9 @@ include('includes/footer.php');
                   );
               }
             });
-            Swal.fire('Tersimpan!', '', 'Berhasil');
+            Swal.fire('Tersimpan!', '', 'Data Berhasil Diubah');
           } else if (result.isDenied) {
-            Swal.fire('Data batal disimpan', '', 'info');
+            Swal.fire('Data Batal Diubah', '', 'info');
           }
         });
       }
@@ -308,4 +335,40 @@ include('includes/footer.php');
       });
     }
   });
+
+  //Delete Data Form
+  function deleteData(id) {
+    Swal.fire({
+      title: 'Apakah anda yakin untuk menghapus data?',
+      showDenyButton: true,
+      confirmButtonText: 'Simpan',
+      denyButtonText: `Batal`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        $.ajax({
+          type: "POST",
+          url: "session/delete-data-session.php",
+          data: { idAdmin: id },
+          success: function (data) {
+            var validate = JSON.parse(data);
+            if (validate.valid == "success")
+              window.location.href = "/adminManagement-page.php";
+            else
+              Swal.fire({
+                title: 'Gagal Melakukan Tindakan !',
+                text: 'Periksa Koneksi !!',
+                icon: 'error',
+                confirmButtonText: 'OK',
+                confirmButtonColor: 'red'
+              }
+              );
+          }
+        });
+        Swal.fire('Tersimpan!', '', 'Data Berhasil Dihapus');
+      } else if (result.isDenied) {
+        Swal.fire('Data Batal Dihapus', '', 'info');
+      }
+    });
+  }
 </script>
