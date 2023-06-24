@@ -5,8 +5,6 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
   <!-- SweetAlert2-->
   <link rel="stylesheet" href="vendor/sweetalert2/sweetalert2.min.css">
@@ -31,14 +29,22 @@
       position: relative;
     }
 
-    #btn-form {
+    .btn-danger {
       width: 230px;
       height: 70px;
-
-      background: #FF3D00;
       box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
       border-radius: 12px;
+      background-color: #FF3D00;
+
     }
+
+    .btn-danger :hover {
+
+      color: aquamarine;
+      background-color: aquamarine;
+
+    }
+
 
     .card {
       border-radius: 25px;
@@ -91,7 +97,7 @@
                       </label>
                     </div>
                     <div class="text-center"><button id="btn-form" type="submit" name="login_btn"
-                        class="btn btn-danger btn-primary ">
+                        class="btn btn-danger">
                         Login </button></div>
                   </form>
                 </div>

@@ -1,11 +1,17 @@
-<?php 
-include ("../includes/db.php");
+<?php
+include("../includes/db.php");
 
-if(isset($_POST['idAdmin'])){
-$idAdmin = $_POST['idAdmin'];
-$sql = "SELECT * FROM admin WHERE id_admin = '$idAdmin' ";
-$editor = mysqli_query($conn,$sql);
-foreach ($editor as $rows) {
-}}
+if (isset($_POST['idAdmin'])) {
+    $id = $_POST['idAdmin'];
+    $sql = "SELECT * FROM admin WHERE id_admin = '$id' ";
+    $editor = mysqli_query($conn, $sql);
+    foreach ($editor as $rows) {
+    }
+} else if (isset($_POST['idKaryawan'])) {
+    $id = $_POST['idKaryawan'];
+    $sql = "SELECT * FROM karyawan WHERE id_karyawan = '$id' ";
+    $editor = mysqli_query($conn, $sql);
+    foreach ($editor as $rows) {
+    }
+}
 echo json_encode($rows);
-?>
