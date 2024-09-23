@@ -15,29 +15,30 @@ require_once './includes/db.php';
       <form class="formAdd" action="session/add-data-session.php" method="POST">
         <div class="modal-body ">
           <div class="mb-3">
-            <label class="form-label" for="name">Nama</label>
-            <input class="form-control" name="name" id="name" type="text" required>
+            <label class="form-label" for="variant">Varian</label>
+            <input class="form-control" name="variant" id="variant" type="text" required>
           </div>
           <div class="mb-3">
-            <label class="form-label" for="date">Tanggal Lahir</label>
-            <input class="form-control" name="date" id="date" type="date" required>
+            <label class="form-label" for="total">Jumlah</label>
+            <input class="form-control" name="total" id="total" type="text" required>
           </div>
           <div class="mb-3">
-            <label class="form-label" for="address">Alamat</label>
-            <input class="form-control" name="address" id="address" type="text" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label" for="salary">Gaji</label>
-            <input class="form-control" name="salary" id="salary" type="text" required>
+            <label class="form-label" for="totalFlour">Tepung</label>
+            <input class="form-control" name="totalFlour" id="totalFlour" type="text" required>
+            <input type="hidden" name="indnt1" value="flour">
           </div>
           <div class="mb-3">
             <label class="form-label" for="position">Posisi</label>
             <select class="custom-select" id="position" name="position">
-              <option value="Produksi">Produksi</option>
+              <option value="Kacang Hijau">Produksi</option>
               <option value="Penjualan">Penjualan</option>
               <option value="Pembelian">Pembelian</option>
               <option value="Gudang">Gudang</option>
             </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="date">Tanggal Produksi</label>
+            <input class="form-control" name="date" id="date" type="datetime-local" required>
           </div>
         </div>
         <div class="modal-footer">
@@ -70,12 +71,12 @@ require_once './includes/db.php';
             <input class="form-control" name="date" id="dateE" type="date" required>
           </div>
           <div class="mb-3">
-            <label class="form-label" for="address">Alamat</label>
-            <input class="form-control" name="address" id="addressE" type="text" required>
+            <label class="form-label" for="total">Alamat</label>
+            <input class="form-control" name="total" id="addressE" type="text" required>
           </div>
           <div class="mb-3">
-            <label class="form-label" for="salary">Gaji</label>
-            <input class="form-control" name="salary" id="salaryE" type="text" required>
+            <label class="form-label" for="totalFlour">Gaji</label>
+            <input class="form-control" name="totalFlour" id="salaryE" type="text" required>
           </div>
           <div class="mb-3">
             <label class="form-label" for="position">Posisi</label>
@@ -115,11 +116,11 @@ require_once './includes/db.php';
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead style="background: #E33035; color: white;">
             <tr>
-              <th>ID</th>
-              <th>Nama</th>
-              <th>Tanggal Lahir</th>
-              <th>Alamat</th>
-              <th>Gaji</th>
+              <th>Kode</th>
+              <th>Varian</th>
+              <th>Tanggal</th>
+              <th>Jumlah</th>
+              <th>Penanggung Jawab</th>
               <th>EDIT</th>
               <th>DELETE</th>
             </tr>
@@ -128,28 +129,28 @@ require_once './includes/db.php';
             <?php
             if (isset($_GET['search'])) {
               $search = ($_GET['search']);
-              $editor = mysqli_query($conn, "select * from karyawan where name like '%" . $search . "%'");
+              $editor = mysqli_query($conn, "select * from produk where name like '%" . $search . "%'");
             } else {
-              $editor = mysqli_query($conn, "Select * from karyawan");
+              $editor = mysqli_query($conn, "Select * from produk");
             }
 
             foreach ($editor as $rows) {
             ?>
               <tr>
                 <td>
+                  <?= $rows['kode_produk'] ?>
+                </td>
+                <td>
+                  <?= $rows['varian'] ?>
+                </td>
+                <td>
+                  <?= $rows['tanggal'] ?>
+                </td>
+                <td>
+                  <?= $rows['jumlah'] ?>
+                </td>
+                <td>
                   <?= $rows['id_karyawan'] ?>
-                </td>
-                <td>
-                  <?= $rows['nama'] ?>
-                </td>
-                <td>
-                  <?= $rows['tanggal_lahir'] ?>
-                </td>
-                <td>
-                  <?= $rows['alamat'] ?>
-                </td>
-                <td>
-                  <?= $rows['gaji'] ?>
                 </td>
                 <td>
                   <button type="submit" name="edit_btn" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalEditData" onclick="editData(`<?= $rows['id_karyawan'] ?>`);"> EDIT</button>
@@ -192,11 +193,11 @@ include('includes/footer.php');
     e.preventDefault();
     var name = document.getElementById("name").value;
     var date = document.getElementById("date").value;
-    var salary = document.getElementById("salary").value;
-    var address = document.getElementById("address").value;
+    var totalFlour = document.getElementById("totalFlour").value;
+    var total = document.getElementById("total").value;
     var position = document.getElementById("position").value;
 
-    if (name.length != 0 && date.length != 0 && salary.length != 0 && address.length != 0 && position.length != 0) {
+    if (name.length != 0 && date.length != 0 && totalFlour.length != 0 && total.length != 0 && position.length != 0) {
       Swal.fire({
         title: 'Apakah anda yakin untuk menambahkan data?',
         showDenyButton: true,
@@ -245,8 +246,8 @@ include('includes/footer.php');
   function editData(id) {
     var name = document.getElementById("nameE").value = "";
     var date = document.getElementById("dateE").value = "";
-    var salary = document.getElementById("salaryE").value = "";
-    var address = document.getElementById("addressE").value = "";
+    var totalFlour = document.getElementById("salaryE").value = "";
+    var total = document.getElementById("addressE").value = "";
     var position = document.getElementById("positionE").value = "";
 
     $.ajax({
@@ -259,8 +260,8 @@ include('includes/footer.php');
         var data = JSON.parse(data);
         var name = document.getElementById("nameE").value = data.nama;
         var date = document.getElementById("dateE").value = data.tanggal_lahir;
-        var salary = document.getElementById("salaryE").value = data.gaji;
-        var address = document.getElementById("addressE").value = data.alamat;
+        var totalFlour = document.getElementById("salaryE").value = data.gaji;
+        var total = document.getElementById("addressE").value = data.alamat;
         var position = document.getElementById("positionE").value = data.posisi;
       }
     });
@@ -273,11 +274,11 @@ include('includes/footer.php');
     e.preventDefault();
     var name = document.getElementById("nameE").value;
     var date = document.getElementById("dateE").value;
-    var salary = document.getElementById("salaryE").value;
-    var address = document.getElementById("addressE").value;
+    var totalFlour = document.getElementById("salaryE").value;
+    var total = document.getElementById("addressE").value;
     var position = document.getElementById("positionE").value;
 
-    if (name.length != 0 && date.length != 0 && salary.length != 0 && address.length != 0 && position.length != 0) {
+    if (name.length != 0 && date.length != 0 && totalFlour.length != 0 && total.length != 0 && position.length != 0) {
       Swal.fire({
         title: 'Apakah anda yakin untuk mengubah data?',
         showDenyButton: true,
